@@ -1,27 +1,60 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Database {
 
-    private int numberOfStudents;
     private List<Student> students;
-    private List<String> courses;
-    private int costOfCourse = 600;
+    private List<Course> courses;
 
     private Database() {
-        System.out.println("How many students?");
-        Scanner in = new Scanner(System.in);
-        try {
-            numberOfStudents = in.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Students must be a number: ");
-            numberOfStudents = in.nextInt();
-        }
-        for (int i = 0; i < numberOfStudents; i++) {
-
-        }
+        students = new ArrayList<>();
+        courses = new ArrayList<>();
     }
+
+    // add //
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    // remove //
+
+    public boolean removeStudent(String studentID) {
+        for (Student student : students) {
+            if (student.getStudentID().equals(studentID)) {
+                students.remove(student);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeCourse(String courseID) {
+        for (Course course : courses) {
+            if (course.getCourseID().equals(courseID)) {
+                courses.remove(course);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getStudentsSize() { return students.size(); }
+
+    public int getCoursesSize() { return courses.size(); }
+
+    // ??????????????
+    // only for test, pls don't sue me for bad code
+    public List<Course> getCourses() { return courses; }
+
+    // only for test, pls don't sue me for bad code
+    public List<Student> getStudents() { return students; }
 
     private static class DatabaseHolder {
         public static final Database instance = new Database();
